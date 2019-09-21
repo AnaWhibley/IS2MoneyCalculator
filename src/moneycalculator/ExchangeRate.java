@@ -30,4 +30,14 @@ public class ExchangeRate {
     public Currency getTo() {
         return to;
     }
+
+    @Override
+    public String toString() {
+        return "ExchangeRate{" +
+                "rate=" + rate +
+                ", date=" + date +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
+    }
 }

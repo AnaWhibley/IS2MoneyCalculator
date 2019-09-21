@@ -2,6 +2,7 @@ package moneycalculator;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -19,9 +20,15 @@ public class Main {
             System.out.println(currency);
         }
 
-        ExchangeRateLoader loader = new RESTExchangeRateLoader();
-        loader.load();
+        ExchangeRateLoader loader = new RESTExchangeRateLoader(list);
+        ExchangeRate[] exchangeRates = loader.load();
 
 
+        System.out.println("Exchange rates: " + Arrays.toString(exchangeRates));
+
+        for (ExchangeRate er : exchangeRates) {
+            Double divisaIntercambiado = 1000 * er.getRate();
+            System.out.println("Por 1000 " + er.getFrom().getName() + " te da :" + divisaIntercambiado + er.getTo().getName());
+        }
     }
 }
