@@ -1,6 +1,9 @@
-package moneycalculator;
+package moneycalculator.controller;
 
 import com.google.gson.Gson;
+import moneycalculator.model.Currency;
+import moneycalculator.model.ExchangeRate;
+import moneycalculator.model.ExchangeRateResponse;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,14 +13,11 @@ import java.util.Scanner;
 
 public class RESTExchangeRateLoader implements ExchangeRateLoader {
 
-    private List<Currency> currencies;
-
-    public RESTExchangeRateLoader(List<Currency> currencies) {
-        this.currencies = currencies;
+    public RESTExchangeRateLoader() {
     }
 
     @Override
-    public ExchangeRate[] load() {
+    public ExchangeRate[] load(Currency currency) {
         try {
 
             URL url = new URL("https://api.exchangeratesapi.io/latest");
@@ -30,13 +30,9 @@ public class RESTExchangeRateLoader implements ExchangeRateLoader {
             String baseCode = response.getBase();
             Currency baseCurrency = null;
 
-            for (Currency currency : this.currencies) {
-                if (currency.getCode().equals(baseCode)) {
-                    baseCurrency = currency;
-                    break;
-                }
+            if (currency.getCode().equals(baseCode)) {
+                baseCurrency = currency;
             }
-
             if (baseCurrency == null) {
                 return new ExchangeRate[0];
             }
@@ -45,11 +41,9 @@ public class RESTExchangeRateLoader implements ExchangeRateLoader {
 
             for (Map.Entry<String, Double> entry : response.getRates().entrySet()) {
                 Currency toCurrency = null;
-                for (Currency currency : this.currencies) {
-                    if (currency.getCode().equals(entry.getKey())) {
-                        toCurrency = currency;
-                        break;
-                    }
+                if (currency.getCode().equals(entry.getKey())) {
+                    toCurrency = currency;
+                    break;
                 }
                 if (toCurrency != null) {
                     ExchangeRate er = new ExchangeRate(entry.getValue(), response.getDate(), baseCurrency, toCurrency);
