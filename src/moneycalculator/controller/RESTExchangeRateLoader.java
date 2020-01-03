@@ -17,7 +17,7 @@ public class RESTExchangeRateLoader implements ExchangeRateLoader {
     }
 
     @Override
-    public ExchangeRate[] load(Currency currency) {
+    public ExchangeRate load(Currency currency) {
         try {
 
             URL url = new URL("https://api.exchangeratesapi.io/latest");
@@ -27,35 +27,22 @@ public class RESTExchangeRateLoader implements ExchangeRateLoader {
             Gson gson = new Gson();
             //System.out.println("Response text: " + responseText);
             ExchangeRateResponse response = gson.fromJson(responseText, ExchangeRateResponse.class);
-            String baseCode = response.getBase();
             Currency baseCurrency = null;
 
-            if (currency.getCode().equals(baseCode)) {
-                baseCurrency = currency;
-            }
-            if (baseCurrency == null) {
-                return new ExchangeRate[0];
-            }
-
-            List<ExchangeRate> results = new ArrayList<>();
+            ExchangeRate result = null;
 
             for (Map.Entry<String, Double> entry : response.getRates().entrySet()) {
-                Currency toCurrency = null;
                 if (currency.getCode().equals(entry.getKey())) {
-                    toCurrency = currency;
-                    break;
-                }
-                if (toCurrency != null) {
-                    ExchangeRate er = new ExchangeRate(entry.getValue(), response.getDate(), baseCurrency, toCurrency);
-                    results.add(er);
+                    ExchangeRate er = new ExchangeRate(entry.getValue(), response.getDate(), baseCurrency, currency);
+                    return er;
                 }
             }
 
-            return results.toArray(new ExchangeRate[results.size()]);
+            return result;
 
         }
         catch (Exception e) {
-            System.out.println("error");
+            System.out.println("Exception " + e);
             e.printStackTrace();
         }
         return null;
