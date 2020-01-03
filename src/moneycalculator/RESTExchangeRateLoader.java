@@ -2,7 +2,6 @@ package moneycalculator;
 
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class RESTExchangeRateLoader implements ExchangeRateLoader {
             String responseText = api.nextLine();
 
             Gson gson = new Gson();
-            System.out.println("Response text: " + responseText);
+            //System.out.println("Response text: " + responseText);
             ExchangeRateResponse response = gson.fromJson(responseText, ExchangeRateResponse.class);
             String baseCode = response.getBase();
             Currency baseCurrency = null;

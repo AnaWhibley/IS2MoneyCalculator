@@ -15,20 +15,16 @@ public class Main {
 
         CSVCurrencyCreator creator = new CSVCurrencyCreator(new File("").getAbsolutePath() + "/src/moneycalculator/currency.csv");
         List<Currency> list = creator.create();
-        for (Currency currency : list) {
-
-            System.out.println(currency);
-        }
 
         ExchangeRateLoader loader = new RESTExchangeRateLoader(list);
         ExchangeRate[] exchangeRates = loader.load();
 
 
-        System.out.println("Exchange rates: " + Arrays.toString(exchangeRates));
+        //System.out.println("Exchange rates: " + Arrays.toString(exchangeRates));
 
         for (ExchangeRate er : exchangeRates) {
             Double divisaIntercambiado = 1000 * er.getRate();
-            System.out.println("Por 1000 " + er.getFrom().getName() + " te da :" + divisaIntercambiado + er.getTo().getName());
+            System.out.println("Por 1000 " + er.getFrom().getName() + " te da :" + divisaIntercambiado + " " + er.getTo().getName());
         }
     }
 }
