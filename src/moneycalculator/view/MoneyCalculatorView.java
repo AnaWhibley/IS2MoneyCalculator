@@ -37,7 +37,7 @@ public class MoneyCalculatorView extends JFrame {
 
         components.put("ResultLabel", new JLabel("Result: "));
         components.put("Result", new JTextField());
-        components.get("Result").setPreferredSize(new Dimension(100, 20));
+        components.get("Result").setPreferredSize(new Dimension(160, 20));
         JTextField resultField = (JTextField)components.get("Result");
         resultField.setEditable(false);
 
