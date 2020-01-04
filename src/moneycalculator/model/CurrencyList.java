@@ -12,8 +12,10 @@ public final class CurrencyList {
         add(new Currency("GBP", "Libra esterlina", "£"));
         add(new Currency("PLN", "Zloty polaco", "zł"));
         add(new Currency("USD", "Dolar americano", "$"));
-        add(new Currency("CAD", "Dolar canadiense", "$"));
+        add(new Currency("CAD", "Dolar canadiense", "CA$"));
         add(new Currency("HKD", "Dolar de Hong Kong", "HK$"));
+        add(new Currency("AUD", "Dolar australiano", "A$"));
+        add(new Currency("KRW", "Won surcoreano", "₩"));
     }
 
     private void add(Currency currency) {

@@ -3,6 +3,7 @@ package moneycalculator.view;
 import moneycalculator.model.Currency;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,9 +19,6 @@ public class MoneyCalculatorView extends JFrame {
 
     public void initialize () {
 
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         components.put("Title" , new JLabel("Calculate exchange from EUR to the currency you want"));
         components.get("Title").setFont(components.get("Title").getFont().deriveFont(1,18));
         Color color = Color.decode("#3574fc");
@@ -34,8 +32,10 @@ public class MoneyCalculatorView extends JFrame {
         components.put("SelectorTo", new JComboBox<Currency>());
 
         components.put("CalculateButton", new JButton("Calculate"));
+        components.put("ClearButton", new JButton("Clear"));
 
-        components.put("ResultLabel", new JLabel("Result: "));
+        components.put("ResultLabel", new JLabel("Result ➜ "));
+        components.get("ResultLabel").setFont(components.get("ResultLabel").getFont().deriveFont(1,14));
         components.put("Result", new JTextField());
         components.get("Result").setPreferredSize(new Dimension(160, 20));
         JTextField resultField = (JTextField)components.get("Result");
@@ -54,9 +54,13 @@ public class MoneyCalculatorView extends JFrame {
         JPanel panelMid2 = new JPanel();
         JPanel panelMid3 = new JPanel();
         JPanel panelBot = new JPanel();
+        JPanel panelBot1 = new JPanel();
+        JPanel panelBot2 = new JPanel();
+        JPanel content = new JPanel();
 
         panelTop.add(components.get("Title"));
         panelTop.setLayout(new FlowLayout());
+        panelTop.setBorder(new EmptyBorder(0, 0, 20, 0));
 
         panelMid1.add(components.get("AmountLabel"));
         panelMid1.add(components.get("Amount"));
@@ -66,8 +70,7 @@ public class MoneyCalculatorView extends JFrame {
         panelMid2.add(components.get("SelectorTo"));
         panelMid2.setLayout(new FlowLayout());
 
-        panelMid3.add(components.get("ResultLabel"));
-        panelMid3.add(components.get("Result"));
+        panelMid3.add(components.get("CalculateButton"));
         panelMid3.setLayout(new FlowLayout());
 
         panelMid.add(panelMid1);
@@ -75,12 +78,23 @@ public class MoneyCalculatorView extends JFrame {
         panelMid.add(panelMid3);
         panelMid.setLayout(new BoxLayout(panelMid, BoxLayout.Y_AXIS));
 
-        panelBot.add(components.get("CalculateButton"));
+        panelBot1.add(components.get("ResultLabel"));
+        panelBot1.add(components.get("Result"));
+        panelBot1.setLayout(new FlowLayout());
+
+        panelBot2.add(panelBot1);
+        panelBot2.add(components.get("ClearButton"));
+        panelBot2.setLayout(new GridLayout(2, 1));
+        panelBot.add(panelBot2);
         panelBot.setLayout(new FlowLayout());
+        panelBot.setBorder(new EmptyBorder(17, 0, 0, 0));
+
+        content.add(panelMid);
+        content.add(panelBot);
+        content.setLayout(new GridLayout(1, 2));
 
         this.add(panelTop, BorderLayout.NORTH);
-        this.add(panelMid, BorderLayout.CENTER);
-        this.add(panelBot, BorderLayout.SOUTH);
+        this.add(content, BorderLayout.CENTER);
 
 
         setSize(700, 200);

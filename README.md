@@ -7,6 +7,8 @@ Currencies available:
 * USD
 * CAD
 * HKD
+* AUD
+* KRW
 
 ## Screenshots 📸
 ### Initial view:
