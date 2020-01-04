@@ -1,7 +1,7 @@
 # IS2MoneyCalculator
 
 Calculator to get exchange from an Euro amount to another currency
-Currencies available:
+## Currencies available:
 * GPB
 * PLN
 * USD
