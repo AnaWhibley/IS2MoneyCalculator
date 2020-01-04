@@ -9,7 +9,9 @@ Currencies available:
 * HKD
 
 ## Screenshots 📸
-
+### Initial view:
 ![Initial view of program](/screenshots/1.png)
+### Currencies:
 ![Available currencies](/screenshots/2.png)
+### Example:
 ![Program working](/screenshots/3.png)
